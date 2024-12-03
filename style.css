@@ -1,26 +1,5 @@
-.schoolbell-regular {
-  font-family: "Schoolbell", cursive;
-  font-weight: 400;
-  font-style: normal;
-}
-.body {
-    font-family: "Schoolbell", cursive;
-    background-color: #f2f2f2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-}
-
-header {
-    font-family: "Schoolbell", cursive;
-    font-size: 3rem;
-    font-weight: bold;
-    background-color: #f2f2f2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+body {
+  font-family: "Delius", sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
 }

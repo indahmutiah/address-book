@@ -4,19 +4,69 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kontak Ku</title>
-    <link rel="icon" type="image/png" href="/assets/favicon.ico" />
+    <link rel="icon" type="image/png" href="/assets/icon/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Schoolbell&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Delius&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Schoolbell&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <meta
+      name="description"
+      content="Kontak Ku is a simple address book web app"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <header>
-      <h2>Kontak Ku</h2>
-      <img src="/assets/favicon.png" alt="logo" width="200px" />
+    <header
+      class="bg-slate-950 text-white py-4 px-6 flex items-center justify-start"
+    >
+      <img src="/assets/icon/logo.png" alt="Logo" class="h-8 w-8 mr-4" />
+      <h1 class="text-xl font-semibold">Kontak Ku.</h1>
     </header>
+    <main class="flex flex-col md:flex-row h-screen">
+      <div class="w-full md:w-2/3 bg-white shadow-lg overflow-y-auto">
+        <div class="p-4 border-b border-slate-100 flex items-center gap-2">
+          <input
+            type="text"
+            placeholder="Cari kontak..."
+            class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-slate-400"
+          />
+          <button
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          >
+            +
+          </button>
+        </div>
+        <table class="list w-full text-left border-collapse">
+          <thead>
+            <tr>
+              <th class="border-b p-4">Name</th>
+              <th class="border-b p-4">Phone</th>
+              <th class="border-b p-4">Email</th>
+              <th class="border-b p-4">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-4 border-b">-</td>
+              <td class="p-4 border-b">-</td>
+              <td class="p-4 border-b">-</td>
+              <td class="p-4 border-b">Edit Delete Detail</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="w-full md:w-1/3 bg-gray-50 p-6 overflow-y-auto">
+        <div class="bg-slate-200 shadow-md p-6 rounded-md">
+          <h2 class="text-2xl font-semibold mb-4">Detail Kontak</h2>
+          <p class="text-gray-600">
+            Silakan pilih kontak dari daftar di sebelah kiri untuk melihat
+            detail.
+          </p>
+        </div>
+      </div>
+    </main>
   </body>
 </html>
