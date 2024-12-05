@@ -4,25 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kontak Ku</title>
-    <link rel="icon" type="image/png" href="/assets/icon/favicon.ico" />
+    <link rel="icon" type="image/png" href="/assets/icon/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Delius&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Schoolbell&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style/style.css" />
     <meta
       name="description"
       content="Kontak Ku is a simple address book web app"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
     <header
       class="bg-slate-950 text-white py-4 px-6 flex items-center justify-start"
     >
-      <img src="/assets/icon/logo.png" alt="Logo" class="h-8 w-8 mr-4" />
+      <img
+        src="/assets/icon/logo.png"
+        alt="Logo"
+        class="h-12 w-12 mr-4 rounded-md"
+      />
       <h1 class="text-xl font-semibold">Kontak Ku.</h1>
     </header>
     <main class="flex flex-col md:flex-row h-screen">
@@ -42,6 +49,9 @@
         <table class="list w-full text-left border-collapse">
           <thead>
             <tr>
+              <th class="border-b p-4">
+                <input type="checkbox" id="select-all" />
+              </th>
               <th class="border-b p-4">Name</th>
               <th class="border-b p-4">Phone</th>
               <th class="border-b p-4">Email</th>
@@ -50,10 +60,23 @@
           </thead>
           <tbody>
             <tr>
+              <td class="p-4 border-b">
+                <input type="checkbox" class="contact-checkbox" />
+              </td>
               <td class="p-4 border-b">-</td>
               <td class="p-4 border-b">-</td>
               <td class="p-4 border-b">-</td>
-              <td class="p-4 border-b">Edit Delete Detail</td>
+              <td class="p-4 border-b">
+                <button class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-blue-500 border border-gray-300 hover:bg-blue-400 hover:border-gray-400">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-red-600 border border-gray-300 hover:bg-red-500 hover:border-gray-400">
+                  <i class="fas fa-trash"></i>
+                </button>
+                <button class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-yellow-500 border border-gray-300 hover:bg-yellow-400 hover:border-gray-400">
+                  <i class="fas fa-info-circle"></i>
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -69,4 +92,7 @@
       </div>
     </main>
   </body>
+  <!-- Javascript -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/style/index.js"></script>
 </html>
