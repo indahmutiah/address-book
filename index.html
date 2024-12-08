@@ -33,6 +33,38 @@
       <h1 class="text-xl font-semibold">Kontak Ku.</h1>
     </header>
     <main class="flex flex-col md:flex-row h-screen">
+      <div class="w-full md:w-1/3 bg-gray-50 p-6 overflow-y-auto">
+        <div class="bg-slate-200 shadow-md p-6 rounded-md">
+          <h2 class="text-2xl font-semibold mb-4">Kontak Ku</h2>
+          <nav class="mt-6">
+            <ul class="space-y-4">
+              <li>
+                <a
+                  href="/"
+                  class="block px-4 py-2 text-lg text-slate-600 hover:bg-slate-800 rounded-md hover:text-white transition-all duration-300"
+                >
+                <i class="fas fa-address-book"></i> Contact
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/"
+                  class="block px-4 py-2 text-lg text-slate-600 hover:bg-slate-800 rounded-md hover:text-white transition-all duration-300"
+                  ><i class="fas fa-user-tag"></i> Label
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/"
+                  class="block px-4 py-2 text-lg text-slate-600 hover:bg-slate-800 rounded-md hover:text-white transition-all duration-300"
+                >
+                  <i class="fas fa-star" style="color: #ffd43b"></i> Favorite
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
       <div class="w-full md:w-2/3 bg-white shadow-lg overflow-y-auto">
         <div class="p-4 border-b border-slate-100 flex items-center gap-2">
           <input
@@ -67,28 +99,25 @@
               <td class="p-4 border-b">-</td>
               <td class="p-4 border-b">-</td>
               <td class="p-4 border-b">
-                <button class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-blue-500 border border-gray-300 hover:bg-blue-400 hover:border-gray-400">
+                <button
+                  class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-blue-500 border border-gray-300 hover:bg-blue-400 hover:border-gray-400"
+                >
                   <i class="fas fa-edit"></i>
                 </button>
-                <button class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-red-600 border border-gray-300 hover:bg-red-500 hover:border-gray-400">
+                <button
+                  class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-red-600 border border-gray-300 hover:bg-red-500 hover:border-gray-400"
+                >
                   <i class="fas fa-trash"></i>
                 </button>
-                <button class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-yellow-500 border border-gray-300 hover:bg-yellow-400 hover:border-gray-400">
+                <button
+                  class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-yellow-500 border border-gray-300 hover:bg-yellow-400 hover:border-gray-400"
+                >
                   <i class="fas fa-info-circle"></i>
                 </button>
               </td>
             </tr>
           </tbody>
         </table>
-      </div>
-      <div class="w-full md:w-1/3 bg-gray-50 p-6 overflow-y-auto">
-        <div class="bg-slate-200 shadow-md p-6 rounded-md">
-          <h2 class="text-2xl font-semibold mb-4">Detail Kontak</h2>
-          <p class="text-gray-600">
-            Silakan pilih kontak dari daftar di sebelah kiri untuk melihat
-            detail.
-          </p>
-        </div>
       </div>
     </main>
   </body>
