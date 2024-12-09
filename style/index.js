@@ -32,13 +32,10 @@ const contacts = [
 ];
 
 function getContacts() {
-  console.log("The contacts list :");
+  console.log("The contacts list:");
   contacts.forEach((contact) => {
-    console.log("Name:", contact.name);
-    console.log("Email:", contact.email);
-    console.log("Phone:", contact.phone);
-    console.log("===========================");
-    console.log("\n");
+    const formattedPhone = contact.phone.replace(/-/g, "");
+    console.log(`${contact.name} (${formattedPhone}) ${contact.email}`);
   });
 }
 getContacts();
