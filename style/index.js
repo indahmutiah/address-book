@@ -32,7 +32,7 @@ const contacts = [
 ];
 
 function getContacts() {
-  console.log("The contacts list:");
+  console.log("The Kontak Ku list:");
   contacts.forEach((contact) => {
     const formattedPhone = contact.phone.replace(/-/g, "");
     console.log(`${contact.name} (${formattedPhone}) ${contact.email}`);
