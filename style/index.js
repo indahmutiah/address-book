@@ -17,13 +17,13 @@ const contacts = [
     email: "insani@example.com",
     phone: "+62 889-3529-5678",
   },
-  { 
+  {
     id: 4,
     name: "Sarah Julia",
     email: "sarah@example.com",
     phone: "+62 890-1234-5678",
   },
-  { 
+  {
     id: 5,
     name: "Eko Soejener",
     email: "eko@example.com",
