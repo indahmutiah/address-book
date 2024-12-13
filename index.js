@@ -96,9 +96,9 @@ function totalContacts() {
   console.log(`Total contacts: ${total}`);
 }
 
-conts = addNewContact = (newContact)  => {
+const addNewContact = (newContact)  => {
   let maxId = 0;
-for(conts of contacts){
+for(const contact of contacts ){
   if(contacts.id > maxId){
     maxId = contacts.id;
   }
