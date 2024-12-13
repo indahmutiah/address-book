@@ -96,6 +96,31 @@ function totalContacts() {
   console.log(`Total contacts: ${total}`);
 }
 
+conts = addNewContact = (newContact)  => {
+  let maxId = 0;
+for(conts of contacts){
+  if(contacts.id > maxId){
+    maxId = contacts.id;
+  }
+}
+
+const newId = maxId + 1;
+
+const contactWithId = { id: newId, ...newContact };
+contacts.push(contactWithId);
+
+return contactWithId;
+};
+
+const newContact = {
+  name: "Rina Suriani",
+  email: "rina@example.com",
+  phone: "+62 892-3456-5678",
+};
+
+const addedContact = addNewContact(newContact);
+console.log("Kontak baru ditambahkan:", addedContact);
+console.log("Daftar kontak saat ini:", contacts);
 getContacts();
 totalContacts();
 
