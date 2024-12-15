@@ -53,11 +53,15 @@ let dataContacts = [
 
 saveToLocalStorage(dataContacts);
 
-function getDataFromLocalStorage() {
+function getContactsFromLocalStorage() {
   const storedData = localStorage.getItem("contacts");
-  return storedData ? JSON.parse(storedData) : dataContacts;
+  if (storedData) {
+    return JSON.parse(storedData);
+  } else {
+    console.log("No contacts found in localStorage.");
+    return []; // Return an empty array if no contacts are found
+  }
 }
-const storageContacts = getDataFromLocalStorage();
 
 function getContacts(contact) {
   console.log("The Kontak Ku list:");
