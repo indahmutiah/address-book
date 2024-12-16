@@ -81,12 +81,6 @@ function getContacts(contact) {
       Favorite : ${contact.is_favorite ? "★" : ""} 
       Label : ${contact.label}
     `);
-
-    // console.log("Validation of contacts");
-    // splitName(contact.name);
-    // emailValidation(contact.email); //Fungsi emailValidation
-    // phoneValidation(contact.phone); //Fungsi phoneValidation
-    // console.log("================================");
   });
 }
 
@@ -237,3 +231,13 @@ function totalContacts() {
   return dataContacts.length;
 }
 console.log("Total Contacts: ", totalContacts());
+
+
+// Fetch API
+async function getContacts() {
+  const response = await fetch("/api/contacts");
+  const contacts = await response.json();
+  console.log(contacts);
+}
+
+getContacts();
