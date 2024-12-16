@@ -233,11 +233,4 @@ function totalContacts() {
 console.log("Total Contacts: ", totalContacts());
 
 
-// Fetch API
-async function getContacts() {
-  const response = await fetch("/api/contacts");
-  const contacts = await response.json();
-  console.log(contacts);
-}
 
-getContacts();
