@@ -72,12 +72,7 @@
             placeholder="Cari kontak..."
             class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-slate-400"
           />
-          <button
-            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-            onclick="window.location.href='form/index.html';"
-          >
-            +
-          </button>
+          <a href="/form/index.html" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">+</a>
         </div>
         <table class="list w-full text-left border-collapse">
           <thead>
@@ -88,44 +83,13 @@
               <th class="border-b p-4">Name</th>
               <th class="border-b p-4">Phone</th>
               <th class="border-b p-4">Email</th>
+              <th class="border-b p-4">Birthdate</th>
               <th class="border-b p-4">Label</th>
+              <th class="border-b p-4">Favorite</th>
               <th class="border-b p-4">Action</th>
-              <th class="border-b p-4"></th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td class="p-4 border-b">
-                <input type="checkbox" class="contact-checkbox" />
-              </td>
-              <td class="p-4 border-b">-</td>
-              <td class="p-4 border-b">-</td>
-              <td class="p-4 border-b">-</td>
-              <td class="p-4 border-b">-</td>
-              <td class="p-4 border-b">
-                <button
-                  class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-blue-500 border border-gray-300 hover:bg-blue-400 hover:border-gray-400"
-                >
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button
-                  class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-red-600 border border-gray-300 hover:bg-red-500 hover:border-gray-400"
-                >
-                  <i class="fas fa-trash"></i>
-                </button>
-                <button
-                  class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-yellow-500 border border-gray-300 hover:bg-yellow-400 hover:border-gray-400"
-                >
-                  <i class="fas fa-info-circle"></i>
-                </button>
-              </td>
-              <td class="p-4 border-b">
-                <label>
-                  <input type="checkbox" class="star-checkbox">
-                  <span class="star-label">★</span>
-                </label>
-              </td>
-            </tr>
+          <tbody id="contact-list">
           </tbody>
         </table>
       </div>
@@ -137,6 +101,6 @@
   <!-- Javascript -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="/index.js"></script>
-  <script src="/fetch-api.js"></script>
+  <!-- <script src="/fetch-api.js"></script> -->
   
 </html>

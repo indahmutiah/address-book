@@ -1,8 +1,3 @@
-// Save Contacts to Local Storage
-function saveToLocalStorage(dataContacts) {
-  localStorage.setItem("contacts", JSON.stringify(dataContacts));
-}
-
 let dataContacts = [
   {
     id: 1,
@@ -63,59 +58,65 @@ function getContactsFromLocalStorage() {
   }
 }
 
-function getContacts(contact) {
-  console.log("The Kontak Ku list:");
-  contact.forEach((contact) => {
-    const formattedPhone = contact.phone.replace(/-/g, "");
+// Save Contacts to Local Storage
+function saveToLocalStorage(dataContacts) {
+  localStorage.setItem("contacts", JSON.stringify(dataContacts));
+}
 
+const contactListElement = document.getElementById("contact-list");
+function renderContacts(contacts) {
+  const contactsTrElements = contacts.map((contact) => {
+    const formattedPhone = contact.phone.replace(/-/g, "");
     const formattedDate = new Intl.DateTimeFormat("en-UK", {
       dateStyle: "long",
-      timeStyle: "short",
-    }).format(contact.birthdate);
+    }).format(new Date(contact.birthdate));
 
-    console.log(`
-      Fullname : ${contact.name} 
-      Phone: ${formattedPhone} 
-      Email: ${contact.email} 
-      Birthdate : ${formattedDate} 
-      Favorite : ${contact.is_favorite ? "★" : ""} 
-      Label : ${contact.label}
-    `);
+    return `
+      <tr>
+        <td class="p-4 border-b">
+          <input type="checkbox" class="contact-checkbox" />
+        </td>
+        <td class="p-4 border-b">${contact.name}</td>
+        <td class="p-4 border-b">${formattedPhone}</td>
+        <td class="p-4 border-b">${contact.email}</td>
+        <td class="p-4 border-b">${formattedDate}</td>
+        <td class="p-4 border-b">${contact.label.join(", ")}</td>
+        <td class="p-4 border-b">${contact.is_favorite ? "★" : ""}</td>
+        <td class="p-4 border-b">
+          <button
+            class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-blue-500 border border-gray-300 hover:bg-blue-400 hover:border-gray-400"
+            onclick="editContact(${contact.id})"
+          >
+            <i class="fas fa-edit"></i>
+          </button>
+          <button
+            class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-red-600 border border-gray-300 hover:bg-red-500 hover:border-gray-400"
+            onclick="deleteContact(${contact.id})"
+          >
+            <i class="fas fa-trash"></i>
+          </button>
+          <button
+            class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-yellow-500 border border-gray-300 hover:bg-yellow-400 hover:border-gray-400"
+            onclick="viewContact(${contact.id})"
+          >
+            <i class="fas fa-info-circle"></i>
+          </button>
+        </td>
+      </tr>
+    `;
   });
+  contactListElement.innerHTML = contactsTrElements.join("");
 }
 
-// Validation Functions
-function emailValidation(email) {
-  if (email && email.includes("@") && email.endsWith(".com")) {
-    console.log(`Email: ${email} is valid`);
-  } else {
-    console.log(`Email: ${email} is invalid`);
+function renderOneContact(contacts, contactId) {
+  const contact = contacts.find((contact) => contact.id === contactId);
+  if (!contact) {
+    console.log("No Contact found");
+    return;
   }
+  renderContacts([contact]);
 }
 
-function splitName(name) {
-  const firstNames = name.split(" ")[0];
-  console.log("First Names: ", firstNames);
-  const lastName = name.split(" ").slice(1).join(" ");
-  console.log("Last Name : ", lastName);
-  return { firstNames, lastName };
-}
-
-function phoneValidation(phone) {
-  if (phone) {
-    const cleanedPhone = phone.replace(/-/g, "");
-    if (
-      (cleanedPhone.startsWith("+62") && cleanedPhone.length <= 16) ||
-      (cleanedPhone.startsWith("08") && cleanedPhone.length <= 12)
-    ) {
-      console.log(`Phone ${phone} is valid`);
-    } else {
-      console.log(`Phone ${phone} is invalid`);
-    }
-  } else {
-    console.log(`Phone ${phone} is invalid`);
-  }
-}
 
 // Searching Function
 function searchContacts(contact, searchTerm) {
@@ -149,7 +150,7 @@ function searchContacts(contact, searchTerm) {
   if (searchingContacts.length === 0) {
     console.log("Not Found");
   } else {
-    getContacts(searchingContacts);
+    renderContacts(searchingContacts);
   }
 }
 
@@ -169,9 +170,9 @@ function addContact(contacts, newContactInput) {
   };
   const newContacts = [...contacts, newContact];
   dataContacts = newContacts;
-  getContacts(dataContacts);
+  // renderContacts(dataContacts);
   saveToLocalStorage(newContacts);
-  getContacts(newContacts);
+  renderContacts(newContacts);
 }
 
 // Delete Function
@@ -180,33 +181,34 @@ function deleteContact(contacts, contactId) {
     return contact.id !== contactId;
   });
   saveToLocalStorage(filteredContacts);
-  getContacts(filteredContacts);
+  renderContacts(filteredContacts);
 }
 
 // Update Contact Function
 function updateContact(contacts, contactId, updatedContactInput) {
-  const currentContact = contacts.find((contact) =>{
+  const currentContact = contacts.find((contact) => {
     return contact.id === contactId;
   });
-  const updatedContact= {
-    id:contactId,
+  const updatedContact = {
+    id: contactId,
     name: updatedContactInput.name || currentContact.name,
     email: updatedContactInput.email || currentContact.email,
     phone: updatedContactInput.phone || currentContact.phone,
-    birthdate: new Date(updatedContactInput.birthdate || currentContact.birthdate),
+    birthdate: new Date(
+      updatedContactInput.birthdate || currentContact.birthdate
+    ),
     is_favorite: updatedContactInput.is_favorite || currentContact.is_favorite,
     label: updatedContactInput.label || currentContact.label,
   };
   const updatedContacts = contacts.map((contact) => {
     if (contact.id === contactId) {
       return updatedContact;
-    } 
+    }
     return contact;
   });
   saveToLocalStorage(updatedContacts);
-  getContacts(updatedContacts);
+  renderContacts(updatedContacts);
 }
-
 
 // Searching Contacts
 searchContacts(dataContacts, "sarah");
@@ -224,13 +226,9 @@ addContact(dataContacts, {
 // Update Contact
 updateContact(dataContacts, 2, {
   email: "salahuddin12@example.com",
-
 });
 
 function totalContacts() {
   return dataContacts.length;
 }
 console.log("Total Contacts: ", totalContacts());
-
-
-
