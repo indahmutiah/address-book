@@ -5,7 +5,7 @@ let dataContacts = [
     email: "indahmutiah@example.com",
     phone: "+62 812-1229-5678",
     birthdate: new Date("1998-06-28"),
-    is_favorite: true,
+    isFavorited: true,
     label: ["Family"],
   },
   {
@@ -14,7 +14,7 @@ let dataContacts = [
     email: "salahuddin@example.com",
     phone: "+62 878-7889-5678",
     birthdate: new Date("1989-10-20"),
-    is_favorite: false,
+    isFavorited: false,
     label: ["Friend", "Work"],
   },
   {
@@ -23,7 +23,7 @@ let dataContacts = [
     email: "insani@example.com",
     phone: "+62 889-3529-5678",
     birthdate: new Date("1993-03-13"),
-    is_favorite: false,
+    isFavorited: false,
     label: ["Others"],
   },
   {
@@ -32,7 +32,7 @@ let dataContacts = [
     email: "sarah@example.com",
     phone: "+62 890-1234-5678",
     birthdate: new Date("1996-04-30"),
-    is_favorite: true,
+    isFavorited: true,
     label: ["Friend", "Work"],
   },
   {
@@ -41,7 +41,7 @@ let dataContacts = [
     email: "eko@example.com",
     phone: "+62 891-2345-5678",
     birthdate: new Date("2003-12-09"),
-    is_favorite: true,
+    isFavorited: true,
     label: ["Family", "Others"],
   },
 ];
@@ -64,8 +64,9 @@ function saveToLocalStorage(dataContacts) {
 }
 
 const contactListElement = document.getElementById("contact-list");
+
 function renderContacts(contacts) {
-  const contactsTrElements = contacts.map((contact) => {
+  const contactsTableRowElements = contacts.map((contact) => {
     const formattedPhone = contact.phone.replace(/-/g, "");
     const formattedDate = new Intl.DateTimeFormat("en-UK", {
       dateStyle: "long",
@@ -81,7 +82,7 @@ function renderContacts(contacts) {
         <td class="p-4 border-b">${contact.email}</td>
         <td class="p-4 border-b">${formattedDate}</td>
         <td class="p-4 border-b">${contact.label.join(", ")}</td>
-        <td class="p-4 border-b">${contact.is_favorite ? "★" : ""}</td>
+        <td class="p-4 border-b">${contact.isFavorited ? "★" : ""}</td>
         <td class="p-4 border-b">
           <button
             class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-blue-500 border border-gray-300 hover:bg-blue-400 hover:border-gray-400"
@@ -95,17 +96,17 @@ function renderContacts(contacts) {
           >
             <i class="fas fa-trash"></i>
           </button>
-          <button
+
+         <a href="/contacts/?id=1"
             class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-yellow-500 border border-gray-300 hover:bg-yellow-400 hover:border-gray-400"
-            onclick="viewContact(${contact.id})"
           >
-            <i class="fas fa-info-circle"></i>
-          </button>
+            <i class="fas fa-info-circle"></i> View
+          </a>
         </td>
       </tr>
     `;
   });
-  contactListElement.innerHTML = contactsTrElements.join("");
+  contactListElement.innerHTML = contactsTableRowElements.join("");
 }
 
 function renderOneContact(contacts, contactId) {
@@ -116,7 +117,6 @@ function renderOneContact(contacts, contactId) {
   }
   renderContacts([contact]);
 }
-
 
 // Searching Function
 function searchContacts(contact, searchTerm) {
@@ -139,7 +139,7 @@ function searchContacts(contact, searchTerm) {
         .format(contact.birthdate)
         .toLocaleLowerCase()
         .includes(searchTerm.toLocaleLowerCase()) ||
-      (contact.is_favorite
+      (contact.isFavorited
         ? "★".includes(searchTerm.toLocaleLowerCase())
         : false) ||
       contact.label.some((label) =>
@@ -165,7 +165,7 @@ function addContact(contacts, newContactInput) {
     email: newContactInput.email,
     phone: newContactInput.phone,
     birthdate: new Date(newContactInput.birthdate),
-    is_favorite: newContactInput.is_favorite,
+    isFavorited: newContactInput.isFavorited,
     label: newContactInput.label,
   };
   const newContacts = [...contacts, newContact];
@@ -197,7 +197,7 @@ function updateContact(contacts, contactId, updatedContactInput) {
     birthdate: new Date(
       updatedContactInput.birthdate || currentContact.birthdate
     ),
-    is_favorite: updatedContactInput.is_favorite || currentContact.is_favorite,
+    isFavorited: updatedContactInput.isFavorited || currentContact.isFavorited,
     label: updatedContactInput.label || currentContact.label,
   };
   const updatedContacts = contacts.map((contact) => {
@@ -219,7 +219,7 @@ addContact(dataContacts, {
   email: "joko@example.com",
   phone: "+62 890-1234-5678",
   birthdate: new Date("1988-04-30"),
-  is_favorite: true,
+  isFavorited: true,
   label: ["Work"],
 });
 
