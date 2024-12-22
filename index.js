@@ -57,11 +57,28 @@ function getContactsFromLocalStorage() {
 
 function renderContacts(contacts) {
   const contactListElement = document.getElementById("contact-list");
+  const urlParams = new URLSearchParams(window.location.search);
+  const searchQuery = urlParams.get("q");
+
+  const localStorageContacts = getContactsFromLocalStorage();
+
+  const allContacts = [...contacts, ...localStorageContacts].filter(
+    (contact, index, self) =>
+      index === self.findIndex((c) => c.id === contact.id)
+  );
+
+  const searchToDisplay = searchQuery
+    ? searchContacts(allContacts, searchQuery)
+    : allContacts;
+
   if (!contactListElement) {
-    console.warn("Element with id 'contact-list' not found. Skipping rendering.");
+    console.warn(
+      "Element with id 'contact-list' not found. Skipping rendering."
+    );
     return;
   }
-  const contactsTableRowElements = contacts.map((contact) => {
+
+  const contactsTableRowElements = searchToDisplay.map((contact) => {
     const formattedPhone = contact.phone.replace(/-/g, "");
     const formattedDate = new Intl.DateTimeFormat("en-UK", {
       dateStyle: "long",
@@ -140,7 +157,7 @@ function addContact(contacts, newContactInput) {
 }
 
 function totalContacts() {
-  return dataContacts.length;
+  return  getContactsFromLocalStorage().length;
 }
 console.log("Total Contacts: ", totalContacts());
 
@@ -150,43 +167,67 @@ window.onload = function () {
   renderContacts(savedContacts);
 };
 
-export { addContact,getContactsFromLocalStorage, renderContacts };
-// // Searching Function
-// function searchContacts(contact, searchTerm) {
-//   const searchingContacts = contact.filter((contact) => {
-//     return (
-//       contact.name
-//         .toLocaleLowerCase()
-//         .includes(searchTerm.toLocaleLowerCase()) ||
-//       contact.email
-//         .toLocaleLowerCase()
-//         .includes(searchTerm.toLocaleLowerCase()) ||
-//       contact.phone
-//         .replace(/-/g, "")
-//         .toLocaleLowerCase()
-//         .includes(searchTerm.toLocaleLowerCase()) ||
-//       new Intl.DateTimeFormat("en-UK", {
-//         dateStyle: "long",
-//         timeStyle: "short",
-//       })
-//         .format(contact.birthdate)
-//         .toLocaleLowerCase()
-//         .includes(searchTerm.toLocaleLowerCase()) ||
-//       (contact.isFavorited
-//         ? "★".includes(searchTerm.toLocaleLowerCase())
-//         : false) ||
-//       contact.label.some((label) =>
-//         label.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
-//       )
-//     );
-//   });
-//   if (searchingContacts.length === 0) {
-//     console.log("Not Found");
-//   } else {
-//     renderContacts(searchingContacts);
-//   }
-// }
+// Searching Function
+function searchContacts(contacts, searchQuery) {
+  const searchedContacts = contacts.filter((contact) => {
+    const formattedPhone = contact.phone.replace(/-/g, "");
+    const formattedDate =
+      contact.birthdate && !isNaN(new Date(contact.birthdate))
+        ? new Intl.DateTimeFormat("en-UK", {
+            dateStyle: "long",
+          }).format(new Date(contact.birthdate))
+        : "";
 
+    return (
+      contact.name
+        .toLocaleLowerCase()
+        .includes(searchQuery.toLocaleLowerCase()) ||
+      contact.email
+        .toLocaleLowerCase()
+        .includes(searchQuery.toLocaleLowerCase()) ||
+      formattedPhone
+        .toLocaleLowerCase()
+        .includes(searchQuery.toLocaleLowerCase()) ||
+      formattedDate
+        .toLocaleLowerCase()
+        .includes(searchQuery.toLocaleLowerCase()) ||
+      (contact.isFavorited && "★".includes(searchQuery.toLocaleLowerCase())) ||
+      contact.label
+        .toLocaleLowerCase()
+        .includes(searchQuery.toLocaleLowerCase())
+    );
+  });
+
+  if (searchedContacts.length === 0) {
+    console.log("Not Found");
+    return [];
+  }
+
+  return searchedContacts;
+}
+// Delete Function
+function deleteContact(contactId) {
+  const isConfirmed = window.confirm("Apakah Anda yakin ingin menghapus kontak ini?");
+  
+  if (isConfirmed) {
+    console.log("Deleting contact with ID:", contactId);
+    
+    const contacts = getContactsFromLocalStorage();
+    const filteredContacts = contacts.filter((contact) => contact.id !== contactId);
+    
+    saveToLocalStorage(filteredContacts);
+    renderContacts([]);
+
+    alert("Kontak berhasil dihapus.");
+    window.location.href = "/";
+  } else {
+    console.log("Penghapusan dibatalkan.");
+  }
+}
+window.deleteContact = deleteContact;
+
+
+export { addContact, getContactsFromLocalStorage, renderContacts };
 // // Update Contact Function
 // function updateContact(contacts, contactId, updatedContactInput) {
 //   const currentContact = contacts.find((contact) => {
@@ -213,14 +254,6 @@ export { addContact,getContactsFromLocalStorage, renderContacts };
 //   renderContacts(updatedContacts);
 // }
 
-// // Delete Function
-// function deleteContact(contacts, contactId) {
-//   const filteredContacts = contacts.filter((contact) => {
-//     return contact.id !== contactId;
-//   });
-//   saveToLocalStorage(filteredContacts);
-//   renderContacts(filteredContacts);
-// }
 
 // // Searching Contacts
 // searchContacts(dataContacts, "sarah");
