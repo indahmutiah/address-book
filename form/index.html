@@ -67,7 +67,7 @@
       </div>
       <div class="w-full md:w-2/3 bg-white shadow-lg overflow-y-auto">
         <h2 class="head-2 px-10 py-8 text-2xl">Add New Contact</h2>
-        <form class="px-10 py-8">
+        <form class="px-10 py-8" method="POST" id="contact-form">
           <label for="name" class="block text-base font-medium text-black">
             Name *
           </label>
@@ -76,6 +76,7 @@
             id="name"
             class="block w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-400"
             placeholder="Name"
+            name="name"
             required
           />
           <label for="phone" class="block text-base text-black py-2">
@@ -88,6 +89,7 @@
             maxlength="14"
             class="block w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-400"
             placeholder="Phone"
+            name="phone"
             required
           />
           <label for="email" class="block text-base text-base text-black py-2">
@@ -98,6 +100,7 @@
             id="email"
             class="block w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-400"
             placeholder="Email"
+            name="email"
             required
           />
           <label
@@ -124,6 +127,7 @@
           <input
             type="checkbox"
             id="isFavorited"
+            name="isFavorited"
             class="block px-4 py-2 mt-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-400"
           />
 
@@ -144,6 +148,6 @@
     </footer>
     <!-- Javascript -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/index.js"></script>
+    <script src="form.js" type="module" ></script>
   </body>
 </html>

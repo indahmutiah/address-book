@@ -145,7 +145,12 @@ function totalContacts() {
 console.log("Total Contacts: ", totalContacts());
 
 renderContacts(dataContacts);
+window.onload = function () {
+  const savedContacts = getContactsFromLocalStorage();
+  renderContacts(savedContacts);
+};
 
+export { addContact,getContactsFromLocalStorage, renderContacts };
 // // Searching Function
 // function searchContacts(contact, searchTerm) {
 //   const searchingContacts = contact.filter((contact) => {
