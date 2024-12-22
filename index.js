@@ -102,7 +102,7 @@ function renderContacts(contacts) {
         <td class="p-4 border-b">
           <button
             class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-blue-500 border border-gray-300 hover:bg-blue-400 hover:border-gray-400"
-            onclick="editContact(${contact.id})"
+            onclick="window.location.href='/form/index.html?id=${contact.id}'"
           >
             <i class="fas fa-edit"></i>
           </button>
@@ -113,10 +113,10 @@ function renderContacts(contacts) {
             <i class="fas fa-trash"></i>
           </button>
 
-         <a href="/contacts/?id=1"
-            class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-yellow-500 border border-gray-300 hover:bg-yellow-400 hover:border-gray-400"
+         <a href="/detail-contact/?id=${contact.id}"
+            class="flex-col items-center justify-center w-8 h-8 py-2 px-2 rounded-lg bg-yellow-500 border border-gray-300 hover:bg-yellow-400 hover:border-gray-400"
           >
-            <i class="fas fa-info-circle"></i> View
+            <i class="fas fa-info-circle"></i> Detail
           </a>
         </td>
       </tr>
@@ -157,7 +157,7 @@ function addContact(contacts, newContactInput) {
 }
 
 function totalContacts() {
-  return  getContactsFromLocalStorage().length;
+  return getContactsFromLocalStorage().length;
 }
 console.log("Total Contacts: ", totalContacts());
 
@@ -207,14 +207,18 @@ function searchContacts(contacts, searchQuery) {
 }
 // Delete Function
 function deleteContact(contactId) {
-  const isConfirmed = window.confirm("Apakah Anda yakin ingin menghapus kontak ini?");
-  
+  const isConfirmed = window.confirm(
+    "Apakah Anda yakin ingin menghapus kontak ini?"
+  );
+
   if (isConfirmed) {
     console.log("Deleting contact with ID:", contactId);
-    
+
     const contacts = getContactsFromLocalStorage();
-    const filteredContacts = contacts.filter((contact) => contact.id !== contactId);
-    
+    const filteredContacts = contacts.filter(
+      (contact) => contact.id !== contactId
+    );
+
     saveToLocalStorage(filteredContacts);
     renderContacts([]);
 
@@ -226,9 +230,58 @@ function deleteContact(contactId) {
 }
 window.deleteContact = deleteContact;
 
+// Function detail contact from local storage 
+function getContactById(contactId) {
+  const contacts = getContactsFromLocalStorage();
+  return contacts.find((contact) => contact.id === contactId);
+}
+
+function renderContactDetail(contact) {
+  if (!contact) {
+    console.log("Kontak tidak ditemukan");
+    return;
+  }
+  const contactDetailElement = document.getElementById("contact-detail");
+  const formattedPhone = contact.phone.replace(/-/g, "");
+  const formattedDate = new Intl.DateTimeFormat("en-UK", {
+    dateStyle: "long",
+  }).format(new Date(contact.birthdate));
+
+  contactDetailElement.innerHTML = `
+    <h2 class="text-2xl font-semibold text-slate-900">${contact.name}</h2>
+    <p class="text-lg text-slate-600 mt-2"><strong>Email:</strong> ${
+      contact.email
+    }</p>
+    <p class="text-lg text-slate-600 mt-2"><strong>Phone:</strong> ${formattedPhone}</p>
+    <p class="text-lg text-slate-600 mt-2"><strong>Birthdate:</strong> ${formattedDate}</p>
+    <p class="text-lg text-slate-600 mt-2"><strong>Label:</strong> ${
+      contact.label || "Tidak ada"
+    }</p>
+    <p class="text-lg text-slate-600 mt-2"><strong>Favorited:</strong> ${
+      contact.isFavorited ? '<i class="fas fa-star text-yellow-400"></i>' : ""
+    }</p>
+  `;
+}
+
+function showContactFromUrl() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const contactId = parseInt(urlParams.get("id"), 10);
+
+  if (!contactId) {
+    console.log("ID tidak valid");
+    return;
+  }
+
+  const contact = getContactById(contactId);
+  renderContactDetail(contact);
+}
+window.onload = showContactFromUrl;
 
 export { addContact, getContactsFromLocalStorage, renderContacts };
-// // Update Contact Function
+
+// Update Contact Function
+
+
 // function updateContact(contacts, contactId, updatedContactInput) {
 //   const currentContact = contacts.find((contact) => {
 //     return contact.id === contactId;
@@ -253,6 +306,8 @@ export { addContact, getContactsFromLocalStorage, renderContacts };
 //   saveToLocalStorage(updatedContacts);
 //   renderContacts(updatedContacts);
 // }
+// window.updateContact = updateContact;
+
 
 
 // // Searching Contacts
