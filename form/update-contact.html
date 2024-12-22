@@ -59,8 +59,8 @@
         </div>
       </div>
       <div class="w-full md:w-2/3 bg-white shadow-lg overflow-y-auto">
-        <h2 class="head-2 px-10 py-8 text-2xl">Add New Contact</h2>
-        <form class="px-10 py-8" method="POST" id="update-contact">
+        <h2 class="head-2 px-10 py-8 text-2xl">Update Contact</h2>
+        <form class="px-10 py-8" id="update-contact" onsubmit="updateContact(event)">
           <label for="name" class="block text-base font-medium text-black">
             Name *
           </label>
@@ -96,13 +96,23 @@
             name="email"
             required
           />
+          <label for="birthdate" class="block text-base text-base text-black py-2">
+            Birthdate 
+          </label>
+          <input
+            type="date"
+            id="birthdate"
+            class="block w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-400"
+            placeholder="Birthdate"
+            name="birthdate"
+          />
           <label
             for="contact-label"
             class="block text-base text-base text-black py-2"
             >Contact Label
           </label>
           <select
-            id="contact-label"
+            id="label"
             class="block w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-400"
             name="label"
           >

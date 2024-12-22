@@ -102,7 +102,7 @@ function renderContacts(contacts) {
         <td class="p-4 border-b">
           <button
             class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-blue-500 border border-gray-300 hover:bg-blue-400 hover:border-gray-400"
-            onclick="window.location.href='/form/index.html?id=${contact.id}'"
+            onclick="window.location.href='/form/update-contact.html?id=${contact.id}'"
           >
             <i class="fas fa-edit"></i>
           </button>
@@ -238,11 +238,11 @@ function getContactById(contactId) {
 
 function renderContactDetail(contact) {
   if (!contact) {
-    console.log("Kontak tidak ditemukan");
+    console.error("Contact not found.");
     return;
   }
   const contactDetailElement = document.getElementById("contact-detail");
-  const formattedPhone = contact.phone.replace(/-/g, "");
+  const formattedPhone = contact.phone ? contact.phone.replace(/-/g, "") : "Make Sure Format Phone";;
   const formattedDate = new Intl.DateTimeFormat("en-UK", {
     dateStyle: "long",
   }).format(new Date(contact.birthdate));
@@ -267,49 +267,112 @@ function showContactFromUrl() {
   const urlParams = new URLSearchParams(window.location.search);
   const contactId = parseInt(urlParams.get("id"), 10);
 
-  if (!contactId) {
-    console.log("ID tidak valid");
-    return;
-  }
-
   const contact = getContactById(contactId);
   renderContactDetail(contact);
 }
 window.onload = showContactFromUrl;
 
-export { addContact, getContactsFromLocalStorage, renderContacts };
+// update function
+// function updateContactForm() {
+//   const urlParams = new URLSearchParams(window.location.search);
+//   const contactId = parseInt(urlParams.get("id"), 10);
 
-// Update Contact Function
+//   if (!contactId) {
+//     console.error("ID tidak valid.");
+//     return;
+//   }
+
+//   const contact = getContactById(contactId);
+//   if (!contact) {
+//     console.error("Kontak tidak ditemukan.");
+//     return;
+//   }
+
+//   // Check if the elements exist before setting their values
+//   function getContactById(contactId) {
+//   const contacts = getContactsFromLocalStorage(); // atau sumber data lainnya
+//   const contact = contacts.find(c => c.id === contactId);
+//   console.log(contact);  // Cek apakah data ditemukan
+//   return contact;
+// }
 
 
-// function updateContact(contacts, contactId, updatedContactInput) {
-//   const currentContact = contacts.find((contact) => {
-//     return contact.id === contactId;
-//   });
+//   const nameElement = document.getElementById("name");
+//   if (nameElement) {
+//     nameElement.value = contact.name || "";
+//   }
+
+//   const emailElement = document.getElementById("email");
+//   if (emailElement) {
+//     emailElement.value = contact.email || "";
+//   }
+
+//   const phoneElement = document.getElementById("phone");
+//   if (phoneElement) {
+//     phoneElement.value = contact.phone || "";
+//   }
+
+//   const birthdateElement = document.getElementById("birthdate");
+//   if (birthdateElement) {
+//     birthdateElement.value = contact.birthdate
+//       ? new Date(contact.birthdate).toISOString().split("T")[0]
+//       : "";
+//   }
+
+//   const isFavoritedElement = document.getElementById("isFavorited");
+//   if (isFavoritedElement) {
+//     isFavoritedElement.checked = contact.isFavorited || false;
+//   }
+
+//   const labelElement = document.getElementById("label");
+//   if (labelElement) {
+//     labelElement.value = contact.label || "";
+//   }
+// }
+
+// window.onload = updateContactForm;
+
+
+// function updateContact(event) {
+//   event.preventDefault();
+
+//   const urlParams = new URLSearchParams(window.location.search);
+//   const contactId = parseInt(urlParams.get("id"), 10);
+//   const contacts = getContactsFromLocalStorage();
+
+//   const currentContact = contacts.find((contact) => contact.id === contactId);
+
+//   if (!currentContact) {
+//     console.error("Kontak tidak ditemukan.");
+//     return;
+//   }
+
+//   // Update data kontak dengan input baru
 //   const updatedContact = {
 //     id: contactId,
-//     name: updatedContactInput.name || currentContact.name,
-//     email: updatedContactInput.email || currentContact.email,
-//     phone: updatedContactInput.phone || currentContact.phone,
-//     birthdate: new Date(
-//       updatedContactInput.birthdate || currentContact.birthdate
-//     ),
-//     isFavorited: updatedContactInput.isFavorited || currentContact.isFavorited,
-//     label: updatedContactInput.label || currentContact.label,
+//     name: document.getElementById("name").value || currentContact.name,
+//     email: document.getElementById("email").value || currentContact.email,
+//     phone: document.getElementById("phone").value || currentContact.phone,
+//     birthdate: document.getElementById("birthdate").value || currentContact.birthdate,
+//     isFavorited: document.getElementById("isFavorited").checked,
+//     label: document.getElementById("label").value || currentContact.label,
 //   };
-//   const updatedContacts = contacts.map((contact) => {
-//     if (contact.id === contactId) {
-//       return updatedContact;
-//     }
-//     return contact;
-//   });
+
+//   // Update kontak di dalam array
+//   const updatedContacts = contacts.map((contact) =>
+//     contact.id === contactId ? updatedContact : contact
+//   );
+
 //   saveToLocalStorage(updatedContacts);
-//   renderContacts(updatedContacts);
+//   alert("Kontak berhasil diperbarui!");
+//   window.location.href = "/index.html"; // Kembali ke halaman utama
 // }
 // window.updateContact = updateContact;
 
 
+export { addContact, getContactsFromLocalStorage, renderContacts };
 
+// Update Contact Function
 // // Searching Contacts
 // searchContacts(dataContacts, "sarah");
 
