@@ -102,7 +102,9 @@ function renderContacts(contacts) {
         <td class="p-4 border-b">
           <button
             class="flex-col items-center justify-center w-8 h-8 rounded-lg bg-blue-500 border border-gray-300 hover:bg-blue-400 hover:border-gray-400"
-            onclick="window.location.href='/form/update-contact.html?id=${contact.id}'"
+            onclick="window.location.href='/form/update-contact.html?id=${
+              contact.id
+            }'"
           >
             <i class="fas fa-edit"></i>
           </button>
@@ -172,13 +174,13 @@ window.onload = function () {
 
 // Searching Function
 function searchContacts(contacts, searchQuery) {
+  console.log(contacts);
+
   const searchedContacts = contacts.filter((contact) => {
     const formattedPhone = contact.phone.replace(/-/g, "");
     const formattedDate =
       contact.birthdate && !isNaN(new Date(contact.birthdate))
-        ? new Intl.DateTimeFormat("en-UK", {
-            dateStyle: "long",
-          }).format(new Date(contact.birthdate))
+        ? formatDate(contact.birthdate)
         : "";
 
     return (
@@ -195,7 +197,8 @@ function searchContacts(contacts, searchQuery) {
         .toLocaleLowerCase()
         .includes(searchQuery.toLocaleLowerCase()) ||
       (contact.isFavorited && "★".includes(searchQuery.toLocaleLowerCase())) ||
-      contact.label
+      (contact.label || "")
+        .toString()
         .toLocaleLowerCase()
         .includes(searchQuery.toLocaleLowerCase())
     );
@@ -233,7 +236,7 @@ function deleteContact(contactId) {
 }
 window.deleteContact = deleteContact;
 
-// Function detail contact from local storage 
+// Function detail contact from local storage
 function getContactById(contactId) {
   const contacts = getContactsFromLocalStorage();
   return contacts.find((contact) => contact.id === contactId);
@@ -246,18 +249,14 @@ function formatDate(date) {
 
 function formatInputDate(date) {
   const formattedDate = new Date(date);
-  return formattedDate.toISOString().split('T')[0]; // Format ISO YYYY-MM-DD
+  return formattedDate.toISOString().split("T")[0]; // Format ISO YYYY-MM-DD
 }
 
 function renderContactDetail(contact) {
-  if (!contact) {
-    console.error("Contact not found.");
-    return;
-  }
 
   const contactDetailElement = document.getElementById("contact-detail");
   if (!contactDetailElement) {
-    console.error("Element with id 'contact-detail' not found.");
+    console.warn("Element with id 'contact-detail' not found.");
     return;
   }
 
@@ -280,7 +279,6 @@ function renderContactDetail(contact) {
   `;
 }
 
-
 function showContactFromUrl() {
   const urlParams = new URLSearchParams(window.location.search);
   const contactId = parseInt(urlParams.get("id"), 10);
@@ -294,16 +292,7 @@ function updateContactForm() {
   const urlParams = new URLSearchParams(window.location.search);
   const contactId = parseInt(urlParams.get("id"), 10);
 
-  if (!contactId) {
-    console.error("ID tidak valid.");
-    return;
-  }
-
   const contact = getContactById(contactId);
-  if (!contact) {
-    console.error("Kontak tidak ditemukan.");
-    return;
-  }
 
 
   const nameElement = document.getElementById("name");
@@ -342,8 +331,6 @@ window.onload = function () {
   updateContactForm();
 };
 
-
-
 function updateContact(event) {
   event.preventDefault();
 
@@ -364,7 +351,8 @@ function updateContact(event) {
     name: document.getElementById("name").value || currentContact.name,
     email: document.getElementById("email").value || currentContact.email,
     phone: document.getElementById("phone").value || currentContact.phone,
-    birthdate: document.getElementById("birthdate").value || currentContact.birthdate,
+    birthdate:
+      document.getElementById("birthdate").value || currentContact.birthdate,
     isFavorited: document.getElementById("isFavorited").checked,
     label: document.getElementById("label").value || currentContact.label,
   };
@@ -375,12 +363,11 @@ function updateContact(event) {
   );
 
   saveToLocalStorage(updatedContacts);
-  renderContacts(updatedContacts); 
+  renderContacts(updatedContacts);
   alert("Kontak berhasil diperbarui!");
   window.location.href = "/index.html"; // Kembali ke halaman utama
 }
 window.updateContact = updateContact;
-
 
 export { addContact, getContactsFromLocalStorage, renderContacts };
 
