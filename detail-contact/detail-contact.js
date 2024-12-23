@@ -1,4 +1,4 @@
-import { getContactById } from "../index.js";
+import { getContactById , formatDate} from "../index.js";
 
 function renderContactDetail(contact) {
   console.log("Rendering contact:", contact);
@@ -34,3 +34,6 @@ function showContactFromUrl() {
   const contact = getContactById(contactId);
   renderContactDetail(contact);
 }
+window.onload = function () {
+  showContactFromUrl();
+};
