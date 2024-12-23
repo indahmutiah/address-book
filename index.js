@@ -45,6 +45,7 @@ let dataContacts = [
     label: "Family",
   },
 ];
+saveToLocalStorage(dataContacts);
 
 // Save Contacts to Local Storage
 function saveToLocalStorage(contacts) {
