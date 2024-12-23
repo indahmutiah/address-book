@@ -134,6 +134,12 @@ function renderOneContact(contacts, contactId) {
   renderContacts([contact]);
 }
 
+// Function detail contact from local storage
+function getContactById(contactId) {
+  const contacts = getContactsFromLocalStorage();
+  return contacts.find((contact) => contact.id === contactId);
+}
+
 // Add Contact Function
 function generateId(contacts) {
   return contacts[contacts.length - 1].id + 1;
@@ -231,11 +237,7 @@ function deleteContact(contactId) {
 }
 window.deleteContact = deleteContact;
 
-// Function detail contact from local storage
-function getContactById(contactId) {
-  const contacts = getContactsFromLocalStorage();
-  return contacts.find((contact) => contact.id === contactId);
-}
+
 function formatDate(date) {
   return new Intl.DateTimeFormat("en-UK", {
     dateStyle: "long",
