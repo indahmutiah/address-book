@@ -1,4 +1,7 @@
+import { getContactById } from "../index.js";
+
 function renderContactDetail(contact) {
+  console.log("Rendering contact:", contact);
   const contactDetailElement = document.getElementById("contact-detail");
   if (!contactDetailElement) {
     console.warn("Element with id 'contact-detail' not found.");

@@ -4,7 +4,7 @@ import { saveToLocalStorage, getContactsFromLocalStorage } from "./storage.js";
 renderContacts();
 
 // Function detail contact from local storage
-function getContactById(contactId) {
+export function getContactById(contactId) {
   const contacts = getContactsFromLocalStorage();
   return contacts.find((contact) => contact.id === contactId);
 }
@@ -20,7 +20,7 @@ window.onload = function () {
 };
 
 // Searching Function
-function searchContacts(contacts, searchQuery) {
+export function searchContacts(contacts, searchQuery) {
   console.log(contacts);
 
   const searchedContacts = contacts.filter((contact) => {

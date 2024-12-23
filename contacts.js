@@ -1,4 +1,5 @@
 import { getContactsFromLocalStorage } from "./storage.js";
+import {searchContacts} from "./index.js";
 
 export function generateId(contacts) {
   if (contacts.length === 0) {
