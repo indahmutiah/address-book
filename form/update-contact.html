@@ -60,7 +60,11 @@
       </div>
       <div class="w-full md:w-2/3 bg-white shadow-lg overflow-y-auto">
         <h2 class="head-2 px-10 py-8 text-2xl">Update Contact</h2>
-        <form class="px-10 py-8" id="update-contact" onsubmit="updateContact(event)">
+        <form
+          class="px-10 py-8"
+          id="update-contact"
+          onsubmit="updateContact(event)"
+        >
           <label for="name" class="block text-base font-medium text-black">
             Name *
           </label>
@@ -78,7 +82,6 @@
           <input
             type="tel"
             id="phone"
-            pattern="[0-9]+"
             maxlength="14"
             class="block w-full px-4 py-2 mt-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-400"
             placeholder="Phone"
@@ -96,8 +99,11 @@
             name="email"
             required
           />
-          <label for="birthdate" class="block text-base text-base text-black py-2">
-            Birthdate 
+          <label
+            for="birthdate"
+            class="block text-base text-base text-black py-2"
+          >
+            Birthdate
           </label>
           <input
             type="date"
