@@ -60,12 +60,7 @@ function renderContacts(contacts) {
   const urlParams = new URLSearchParams(window.location.search);
   const searchQuery = urlParams.get("q");
 
-  const localStorageContacts = getContactsFromLocalStorage();
-
-  const allContacts = [...contacts, ...localStorageContacts].filter(
-    (contact, index, self) =>
-      index === self.findIndex((c) => c.id === contact.id)
-  );
+  const allContacts = getContactsFromLocalStorage();
 
   const searchToDisplay = searchQuery
     ? searchContacts(allContacts, searchQuery)
@@ -126,9 +121,8 @@ function renderContacts(contacts) {
   });
   contactListElement.innerHTML = contactsTableRowElements.join("");
 }
-window.onload = function () {
-  renderContacts();
-};
+
+renderContacts();
 
 function renderOneContact(contacts, contactId) {
   const contact = contacts.find((contact) => contact.id === contactId);
@@ -166,7 +160,7 @@ function totalContacts() {
 }
 console.log("Total Contacts: ", totalContacts());
 
-renderContacts(dataContacts);
+
 window.onload = function () {
   const savedContacts = getContactsFromLocalStorage();
   renderContacts(savedContacts);
