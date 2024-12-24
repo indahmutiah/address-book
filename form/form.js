@@ -52,7 +52,7 @@ function updateContactForm() {
   const contactId = parseInt(urlParams.get("id"), 10);
 
   const contact = getContactById(contactId);
-  console.log(contactId);
+  console.log("Ini Contact ID", contactId);
 
   const nameElement = document.getElementById("name");
   if (nameElement) {
@@ -100,31 +100,29 @@ function updateContact(event) {
   console.log("Current Contact:", currentContact);
 
   if (!currentContact) {
-      console.error("Kontak tidak ditemukan.");
-      return false;
+    console.error("Kontak tidak ditemukan.");
+    return false;
   }
 
   // Update data kontak dengan input baru
   const updatedContact = {
-      id: contactId,
-      name: document.getElementById("name").value || currentContact.name,
-      email: document.getElementById("email").value || currentContact.email,
-      phone: document.getElementById("phone").value || currentContact.phone,
-      birthdate: document.getElementById("birthdate").value || currentContact.birthdate,
-      isFavorited: document.getElementById("isFavorited").checked,
-      label: document.getElementById("label").value || currentContact.label,
+    id: contactId,
+    name: document.getElementById("name").value || currentContact.name,
+    email: document.getElementById("email").value || currentContact.email,
+    phone: document.getElementById("phone").value || currentContact.phone,
+    birthdate:
+      document.getElementById("birthdate").value || currentContact.birthdate,
+    isFavorited: document.getElementById("isFavorited").checked,
+    label: document.getElementById("label").value || currentContact.label,
   };
 
   // Update kontak di dalam array
   const updatedContacts = contacts.map((contact) =>
-      contact.id === contactId ? updatedContact : contact
+    contact.id === contactId ? updatedContact : contact
   );
 
   saveToLocalStorage(updatedContacts);
   renderContacts(updatedContacts);
 
-  window.location.href = "/"; // Back to home
-
-  return false; // Prevent form submission
+  // window.location.href = "/"; // Back to home
 }
-window.onload = function () { updateContactForm(); };
