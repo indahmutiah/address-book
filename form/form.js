@@ -48,6 +48,7 @@ if (addContactFormElement) {
 
 // update function
 function updateContactForm() {
+
   const urlParams = new URLSearchParams(window.location.search);
   const contactId = parseInt(urlParams.get("id"), 10);
 
@@ -89,6 +90,13 @@ window.onload = function () {
   updateContactForm();
 };
 
+document.addEventListener("DOMContentLoaded", function() {
+  const update = document.getElementById('updateContactButton');
+  if (update) {
+    update.addEventListener('click', updateContact);
+  }
+});
+
 function updateContact(event) {
   event.preventDefault();
 
@@ -124,5 +132,5 @@ function updateContact(event) {
   saveToLocalStorage(updatedContacts);
   renderContacts(updatedContacts);
 
-  // window.location.href = "/"; // Back to home
+  window.location.href = "/"; // Back to home
 }
