@@ -1,5 +1,5 @@
 import { getContactsFromLocalStorage } from "./storage.js";
-import {searchContacts} from "./index.js";
+import { searchContacts } from "./index.js";
 
 export function generateId(contacts) {
   if (contacts.length === 0) {
@@ -21,6 +21,9 @@ export function renderContacts() {
   const contactListElement = document.getElementById("contact-list");
   const urlParams = new URLSearchParams(window.location.search);
   const searchQuery = urlParams.get("q");
+  const filterQuery = urlParams.get("filter");
+
+  console.log({ filterQuery });
 
   const allContacts = getContactsFromLocalStorage();
 

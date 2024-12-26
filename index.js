@@ -1,23 +1,11 @@
 import { renderContacts } from "./contacts.js";
-import { saveToLocalStorage, getContactsFromLocalStorage, } from "./storage.js";
-
-renderContacts();
+import { saveToLocalStorage, getContactsFromLocalStorage } from "./storage.js";
 
 // Function detail contact from local storage
 export function getContactById(contactId) {
   const contacts = getContactsFromLocalStorage();
   return contacts.find((contact) => contact.id === contactId);
 }
-
-function totalContacts() {
-  return getContactsFromLocalStorage().length;
-}
-console.log("Total Contacts: ", totalContacts());
-
-window.onload = function () {
-  const savedContacts = getContactsFromLocalStorage();
-  renderContacts(savedContacts);
-};
 
 // Searching Function
 export function searchContacts(contacts, searchQuery) {
@@ -80,7 +68,6 @@ function deleteContact(contactId) {
     console.log("Penghapusan dibatalkan.");
   }
 }
-window.deleteContact = deleteContact;
 
 export function formatDate(date) {
   return new Intl.DateTimeFormat("en-UK", {
@@ -93,5 +80,7 @@ export function formatInputDate(date) {
   return formattedDate.toISOString().split("T")[0]; // Format ISO YYYY-MM-DD
 }
 
-
-
+window.onload = function () {
+  const savedContacts = getContactsFromLocalStorage();
+  renderContacts(savedContacts);
+};

@@ -3,8 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kontak Ku</title>
     <link rel="icon" type="image/png" href="/assets/icon/favicon.png" />
+
+    <title>Kontak Ku</title>
+    <meta
+      name="description"
+      content="Kontak Ku is a simple address book web app"
+    />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,28 +21,28 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/style/style.css" />
-    <meta
-      name="description"
-      content="Kontak Ku is a simple address book web app"
-    />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/style/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
   <body>
-    <header
-      class="bg-slate-950 text-white py-4 px-6 flex items-center justify-start"
-    >
-      <img
-        src="/assets/icon/logo.png"
-        alt="Logo"
-        class="h-12 w-12 mr-4 rounded-md"
-      />
-      <h1 class="text-xl font-semibold">Kontak Ku.</h1>
+    <header class="bg-slate-950 text-white py-4 px-6">
+      <a href="/" class="flex items-center">
+        <img
+          src="/assets/icon/logo.png"
+          alt="Logo"
+          class="mr-4 rounded-md"
+          width="50"
+          height="50"
+        />
+        <h1 class="text-xl font-semibold">Kontak Ku.</h1>
+      </a>
     </header>
+
     <main class="flex flex-col md:flex-row h-screen">
       <div class="w-full md:w-1/3 bg-gray-50 p-6 overflow-y-auto">
         <div class="bg-slate-200 shadow-md p-6 rounded-md">
@@ -46,17 +52,17 @@
               <li>
                 <a
                   href="/"
-                  class="block px-4 py-2 text-lg text-slate-600 hover:bg-slate-800 rounded-md hover:text-white transition-all duration-300"
+                  class="block px-4 py-2 text-lg text-slate-600 hover:bg-slate-800 rounded-md hover:text-white"
                 >
-                  <i class="fas fa-address-book"></i> Contact
+                  <i class="fas fa-address-book"></i> All Contacts
                 </a>
               </li>
               <li>
                 <a
-                  href="/"
-                  class="block px-4 py-2 text-lg text-slate-600 hover:bg-slate-800 rounded-md hover:text-white transition-all duration-300"
+                  href="/?filter=favorited"
+                  class="block px-4 py-2 text-lg text-slate-600 hover:bg-slate-800 rounded-md hover:text-white"
                 >
-                  <i class="fas fa-star" style="color: #ffd43b"></i> Favorite
+                  <i class="fas fa-star" style="color: #ffd43b"></i> Favorited
                 </a>
               </li>
             </ul>
@@ -112,7 +118,6 @@
       </p>
     </footer>
 
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="/index.js" type="module"></script>
   </body>
 </html>
