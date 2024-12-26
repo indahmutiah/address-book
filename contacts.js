@@ -22,14 +22,19 @@ export function renderContacts() {
   const urlParams = new URLSearchParams(window.location.search);
   const searchQuery = urlParams.get("q");
   const filterQuery = urlParams.get("filter");
-
-  console.log({ filterQuery });
-
   const allContacts = getContactsFromLocalStorage();
 
-  const searchToDisplay = searchQuery
-    ? searchContacts(allContacts, searchQuery)
-    : allContacts;
+  let contactsToDisplay = allContacts;
+
+  // Filter for favorited contacts
+  if (filterQuery === "favorited") {
+    contactsToDisplay = allContacts.filter((contact) => contact.isFavorited);
+  }
+
+  // Filter with search query
+  if (searchQuery) {
+    contactsToDisplay = searchContacts(contactsToDisplay, searchQuery);
+  }
 
   if (!contactListElement) {
     console.warn(
@@ -38,7 +43,7 @@ export function renderContacts() {
     return;
   }
 
-  const contactsTableRowElements = searchToDisplay.map((contact) => {
+  const contactsTableRowElements = contactsToDisplay.map((contact) => {
     const formattedPhone = contact.phone.replace(/-/g, "");
     const formattedDate = new Intl.DateTimeFormat("en-UK", {
       dateStyle: "long",

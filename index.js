@@ -9,8 +9,6 @@ export function getContactById(contactId) {
 
 // Searching Function
 export function searchContacts(contacts, searchQuery) {
-  console.log(contacts);
-
   const searchedContacts = contacts.filter((contact) => {
     const formattedPhone = contact.phone.replace(/-/g, "");
     const formattedDate =
