@@ -19,10 +19,14 @@ export function renderOneContact(contacts, contactId) {
 
 export function renderContacts() {
   const contactListElement = document.getElementById("contact-list");
+  const searchInputElement = document.getElementById("search");
+
   const urlParams = new URLSearchParams(window.location.search);
   const searchQuery = urlParams.get("q");
   const filterQuery = urlParams.get("filter");
   const allContacts = getContactsFromLocalStorage();
+
+  searchInputElement.value = searchQuery || "";
 
   let contactsToDisplay = allContacts;
 
