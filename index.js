@@ -38,7 +38,6 @@ export function searchContacts(contacts, searchQuery) {
   });
 
   if (searchedContacts.length === 0) {
-    console.log("Not Found");
     return [];
   }
 
@@ -51,7 +50,6 @@ function deleteContact(contactId) {
   );
 
   if (isConfirmed) {
-    console.log("Deleting contact with ID:", contactId);
 
     const contacts = getContactsFromLocalStorage();
     const filteredContacts = contacts.filter(
@@ -63,7 +61,7 @@ function deleteContact(contactId) {
 
     window.location.href = "/";
   } else {
-    console.log("Penghapusan dibatalkan.");
+    return;
   }
 }
 window.deleteContact = deleteContact; 

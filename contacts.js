@@ -11,7 +11,6 @@ export function generateId(contacts) {
 export function renderOneContact(contacts, contactId) {
   const contact = contacts.find((contact) => contact.id === contactId);
   if (!contact) {
-    console.log("No Contact found");
     return;
   }
   renderContacts([contact]);

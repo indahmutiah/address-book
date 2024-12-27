@@ -53,7 +53,6 @@ function updateContactForm() {
   const contactId = parseInt(urlParams.get("id"), 10);
 
   const contact = getContactById(contactId);
-  console.log("Ini Contact ID", contactId);
 
   const nameElement = document.getElementById("name");
   if (nameElement) {
@@ -105,7 +104,7 @@ function updateContact(event) {
   const contacts = getContactsFromLocalStorage();
 
   const currentContact = contacts.find((contact) => contact.id === contactId);
-  console.log("Current Contact:", currentContact);
+
 
   if (!currentContact) {
     console.error("Kontak tidak ditemukan.");
