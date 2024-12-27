@@ -26,6 +26,11 @@ export function renderContacts() {
   const filterQuery = urlParams.get("filter");
   const allContacts = getContactsFromLocalStorage();
 
+  
+  if (!searchInputElement) {
+    console.error("Search input element not found.");
+    return;
+  }
   searchInputElement.value = searchQuery || "";
 
   let contactsToDisplay = allContacts;

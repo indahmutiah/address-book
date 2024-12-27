@@ -66,7 +66,7 @@ function deleteContact(contactId) {
     console.log("Penghapusan dibatalkan.");
   }
 }
-
+window.deleteContact = deleteContact; 
 export function formatDate(date) {
   return new Intl.DateTimeFormat("en-UK", {
     dateStyle: "long",
